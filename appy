@@ -1,0 +1,46 @@
+import streamlit as st
+import pandas as pd
+
+# Configuración
+st.set_page_config(page_title="Calculadora Rentabilidad", layout="wide")
+st.markdown("""
+<style>
+    .main { padding: 20px; }
+    .stButton>button { width: 100%; }
+    .result-positive { color: green; font-weight: bold; }
+    .result-negative { color: red; font-weight: bold; }
+</style>
+""", unsafe_allow_html=True)
+
+# Base de datos de productos (oculta en el código)
+PRODUCTOS = {
+    1: {'nombre': 'Tomate', 'costo': 3.00, 'precio': 4.50},
+    2: {'nombre': 'Papa', 'costo': 2.50, 'precio': 4.00},
+    # ... (todos tus 50 productos aquí)
+    50: {'nombre': 'Romero', 'costo': 1.20, 'precio': 2.20}
+}
+
+# Interfaz
+st.title("📊 Calculadora de Rentabilidad - Área de Ventas")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    producto_selec = st.selectbox(
+        "Seleccionar Producto:",
+        options=[f"{p['nombre']} (${p['precio']})" for p in PRODUCTOS.values()]
+    )
+    
+    cantidad = st.slider("Cantidad:", 1, 100, 1)
+    descuento = st.slider("Descuento (%):", 0, 100, 0)
+
+with col2:
+    if st.button("Calcular Ganancia", type="primary"):
+        # Lógica de cálculo aquí
+        st.success("Cálculo completado")
+        
+    st.divider()
+    st.subheader("Resultados:")
+    # Mostrar resultados aquí
+
+st.info("© 2024 - Sistema interno de rentabilidad")
